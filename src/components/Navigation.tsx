@@ -1,7 +1,8 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Leaf, Menu, User, LogOut, Settings, ChevronDown } from "lucide-react";
 import { useState, useEffect } from "react";
-import { useAuth } from '@/contexts/AuthContext';
+import { Button } from "@/components/ui/button"
+import { useAuth } from "@/contexts/AuthContext"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,7 +24,11 @@ const Navigation = () => {
     { name: "Dashboard", path: "/dashboard" },
   ];
 
-  const navLinks = user ? privateLinks : [];
+  const publicLinks = [
+    { name: "Produk", path: "/products" },
+  ];
+
+  const navLinks = user ? [...publicLinks, ...privateLinks] : publicLinks;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,8 +43,8 @@ const Navigation = () => {
     <nav 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? "bg-background/95 backdrop-blur-lg shadow-sm" 
-          : "bg-background/50 backdrop-blur-sm"
+          ? "bg-background/80 backdrop-blur-lg shadow-sm border-b" 
+          : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-6">

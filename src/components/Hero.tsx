@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { BadgeCheck, Leaf, Recycle } from "lucide-react";
 import heroImage from "@/assets/hero-bg.jpg";
 
 const Hero = () => {
@@ -21,30 +21,44 @@ const Hero = () => {
       {/* Content */}
       <div className="container relative z-10 mx-auto px-6 py-32 text-center">
         <div className="max-w-4xl mx-auto space-y-8 animate-fade-in-up">
-          <div className="inline-block px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium mb-4">
-            🌿 Sustainability Made Simple
-          </div>
-
           <h1 className="text-5xl md:text-7xl font-bold text-foreground leading-tight">
-            Kurangi Sampah,
+            Selamatkan Bumi dari
             <br />
-            <span className="text-primary">Isi Ulang dengan ZeroPack</span>
+            <span className="text-primary">Plastik Sekali Pakai</span>
           </h1>
 
+          <h2 className="text-3xl md:text-4xl font-semibold text-primary">
+            Isi Ulang Higienis,
+            <br />
+            Bumi Lebih Sehat
+          </h2>
+
           <p className="text-xl md:text-2xl text-foreground/70 max-w-2xl mx-auto leading-relaxed">
-            Layanan refill produk rumah tangga yang ramah lingkungan dan praktis
-            untuk kehidupan kos dan rumah modern.
+            Zero Pack memotong sampah plastik harian dengan sistem isi ulang higienis & terjadwal. 
+            Kamu pakai seperti biasa, Bumi bernapas lebih lega.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
-            <Link
-              to="/auth"
-              className="group px-8 py-4 bg-primary text-primary-foreground rounded-full font-semibold text-lg hover:shadow-xl hover:scale-105 transition-all flex items-center gap-2"
-            >
-              Coba Sekarang
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Link>
+          <div className="flex flex-wrap justify-center gap-8 my-12">
+            <div className="flex items-center gap-2 text-foreground/70">
+              <BadgeCheck className="h-6 w-6 text-primary" />
+              <span>Transparan Dampak</span>
+            </div>
+            <div className="flex items-center gap-2 text-foreground/70">
+              <Leaf className="h-6 w-6 text-primary" />
+              <span>Higienis & Aman</span>
+            </div>
+            <div className="flex items-center gap-2 text-foreground/70">
+              <Recycle className="h-6 w-6 text-primary" />
+              <span>Hemat Tanpa Ribet</span>
+            </div>
           </div>
+
+          <Link
+            to="/auth"
+            className="inline-block px-8 py-4 bg-primary text-primary-foreground rounded-full font-semibold text-lg hover:shadow-xl hover:scale-105 transition-all"
+          >
+            Mulai Sekarang
+          </Link>
         </div>
 
         {/* Scroll indicator */}

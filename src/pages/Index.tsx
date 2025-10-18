@@ -5,7 +5,6 @@ import Hero from "@/components/Hero";
 import Mission from "@/components/Mission";
 import { HowItWorks } from "@/components/HowItWorks";
 import { HygieneStandards } from "@/components/HygieneStandards";
-import Testimonials from "@/components/Testimonials";
 import { FAQ } from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import { useAuth } from "@/contexts/AuthContext";
@@ -26,7 +25,6 @@ const Index = () => {
       <Mission />
       <HowItWorks />
       <HygieneStandards />
-      <Testimonials />
       <FAQ />
       <Footer />
     </div>
