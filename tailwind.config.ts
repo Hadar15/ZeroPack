@@ -69,6 +69,17 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        "subtle-ken-burns": {
+          "0%": {
+            transform: "scale(1) translate(0, 0)",
+          },
+          "50%": {
+            transform: "scale(1.05) translate(-1%, -1%)",
+          },
+          "100%": {
+            transform: "scale(1) translate(0, 0)",
+          },
+        },
         "accordion-down": {
           from: {
             height: "0",
@@ -131,6 +142,7 @@ export default {
         },
       },
       animation: {
+        "subtle-ken-burns": "subtle-ken-burns 20s ease-in-out infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.6s ease-out",
