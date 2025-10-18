@@ -43,30 +43,47 @@ export function Impact() {
   const currentData = impactData[selectedTimeFrame];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-green-50/50 to-white">
+    <section className="py-24 bg-gradient-to-b from-background to-green-50/30">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Dampak Kolektif Kita
-          </h2>
-          <p className="text-lg text-gray-600 mb-12">
-            Bersama-sama kita sudah menyelamatkan Bumi dari ribuan botol plastik
-          </p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-green-500">
+              Dampak Kolektif Kita
+            </h2>
+            <p className="text-lg md:text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+              Bersama-sama kita sudah menyelamatkan Bumi dari ribuan botol plastik
+            </p>
+          </motion.div>
 
           {/* Time frame selector */}
-          <div className="inline-flex bg-white rounded-xl p-2 shadow-lg mb-12">
+          <div className="inline-flex bg-white/80 backdrop-blur-sm rounded-2xl p-2 shadow-xl mb-12 border border-green-100">
             {timeFrames.map((timeFrame) => (
-              <button
+              <motion.button
                 key={timeFrame.id}
                 onClick={() => setSelectedTimeFrame(timeFrame.id)}
-                className={`px-6 py-2 rounded-lg transition-all duration-300 ${
+                className={`px-6 py-3 rounded-xl transition-all duration-300 relative ${
                   selectedTimeFrame === timeFrame.id
-                    ? "bg-green-600 text-white shadow-md"
-                    : "text-gray-600 hover:bg-gray-100"
+                    ? "text-white"
+                    : "text-gray-600 hover:text-green-600"
                 }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                {timeFrame.label}
-              </button>
+                {selectedTimeFrame === timeFrame.id && (
+                  <motion.div
+                    className="absolute inset-0 bg-green-600 rounded-xl"
+                    layoutId="activeFrame"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+                <span className="relative z-10">
+                  {timeFrame.label}
+                </span>
+              </motion.button>
             ))}
           </div>
 

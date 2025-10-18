@@ -3,54 +3,40 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-secondary text-secondary-foreground">
-      <div className="container mx-auto px-6 py-12">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8 lg:gap-12 mb-12">
-            <div className="md:col-span-1 space-y-6">
-              <div className="flex items-center gap-3">
-                <div className="p-2.5 bg-primary/20 rounded-xl">
-                  <Leaf className="w-7 h-7 text-primary" />
-                </div>
-                <span className="text-2xl font-bold">ZeroPack</span>
-              </div>
-              <p className="text-secondary-foreground/80 leading-relaxed text-base max-w-sm">
-                Bersama ZeroPack, hidup praktis dan peduli lingkungan bukan lagi pilihan sulit.
-              </p>
-            </div>
-
-            <div className="md:col-span-1 md:text-center">
-              <h3 className="font-semibold text-xl mb-6">Layanan</h3>
-              <ul className="space-y-3 text-secondary-foreground/80">
-                <li className="hover:text-primary transition-colors cursor-pointer">Sabun Cair</li>
-                <li className="hover:text-primary transition-colors cursor-pointer">Detergen</li>
-                <li className="hover:text-primary transition-colors cursor-pointer">Pembersih Lantai</li>
-                <li className="hover:text-primary transition-colors cursor-pointer">Sabun Cuci Piring</li>
-              </ul>
-            </div>
-
-            <div className="md:col-span-1">
-              <h3 className="font-semibold text-xl mb-6">Kontak</h3>
-              <ul className="space-y-4">
-                <li className="flex items-center gap-3 text-secondary-foreground/80 hover:text-primary transition-colors group cursor-pointer">
-                  <Mail className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
-                  <span>info@zeropack.id</span>
-                </li>
-                <li className="flex items-center gap-3 text-secondary-foreground/80 hover:text-primary transition-colors group cursor-pointer">
-                  <Phone className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
-                  <span>+62 812-3456-7890</span>
-                </li>
-                <li className="flex items-center gap-3 text-secondary-foreground/80 hover:text-primary transition-colors group cursor-pointer">
-                  <MapPin className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
-                  <span>Yogyakarta, Indonesia</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+    <footer className="bg-white border-t">
+      <div className="container mx-auto px-4 py-12">
+        <div className="max-w-md mx-auto text-center space-y-6">
+          <Link to="/" className="text-2xl font-bold text-green-600 hover:text-green-700 transition-colors">
+            Zero Pack
+          </Link>
           
-          <div className="pt-8 border-t border-secondary-foreground/20 text-center text-secondary-foreground/70">
-            <p>&copy; 2025 ZeroPack. All rights reserved. Made with 🌿 for the Earth.</p>
+          <p className="text-gray-600">
+            Zero Pack memotong sampah plastik harian dengan sistem isi ulang higienis & terjadwal. 
+            Kamu pakai seperti biasa, Bumi bernapas lebih lega.
+          </p>
+
+          <div className="flex justify-center gap-6">
+            <a
+              href="https://wa.me/your-number"
+              className="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors group"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Mail className="h-5 w-5 group-hover:scale-110 transition-transform" />
+              <span>WhatsApp</span>
+            </a>
+            <a
+              href="mailto:info@zeropack.id"
+              className="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors group"
+            >
+              <Mail className="h-5 w-5 group-hover:scale-110 transition-transform" />
+              <span>Email</span>
+            </a>
           </div>
+
+          <p className="text-sm text-gray-500">
+            © {new Date().getFullYear()} Zero Pack. Semua hak dilindungi.
+          </p>
         </div>
       </div>
     </footer>
