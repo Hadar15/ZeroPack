@@ -26,9 +26,13 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="backdrop-blur-sm bg-white/10 px-6 py-3 rounded-full inline-block mb-6"
+            className="relative inline-block mb-4"
           >
-            <p className="text-lg md:text-xl font-medium text-foreground/90">
+            <div className="absolute inset-0 bg-white/10 backdrop-blur-[2px] rounded-lg -skew-y-1 transform" />
+            <p className="relative px-6 py-2 text-lg md:text-xl font-medium text-white/90 flex items-center gap-2">
+              <span className="w-4 h-4 rounded-full bg-primary/30 backdrop-blur-sm flex items-center justify-center">
+                <span className="w-2 h-2 rounded-full bg-primary" />
+              </span>
               Selamatkan Bumi dari Plastik Sekali Pakai
             </p>
           </motion.div>
