@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-b from-white to-green-50/30 border-t border-green-100">
-      <div className="container mx-auto px-4 py-12">
+    <footer className="bg-gradient-to-b from-green-50 via-green-50/50 to-green-100/20 border-t border-green-100">
+      <div className="container mx-auto px-4 py-16">
         <div className="max-w-md mx-auto text-center space-y-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

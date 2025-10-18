@@ -79,11 +79,11 @@ const products: Product[] = [
 export default function Products() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50/50 via-white to-green-50/30">
-      <div className="container mx-auto px-4 py-24">
+      <div className="container max-w-6xl mx-auto px-4 py-24">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="max-w-4xl mx-auto text-center mb-16"
+          className="max-w-3xl mx-auto text-center mb-12"
         >
           <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-green-500">
             Katalog Produk
@@ -95,7 +95,7 @@ export default function Products() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product, index) => (
             <motion.div
               key={product.name}
