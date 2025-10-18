@@ -48,7 +48,7 @@ const Footer = () => {
           >
             <a
               href="https://wa.me/your-number"
-              className="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors group"
+              className="flex items-center gap-2 bg-green-500 hover:bg-green-400 text-white px-4 py-2 rounded-lg transition-all duration-300 group"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -57,7 +57,7 @@ const Footer = () => {
             </a>
             <a
               href="mailto:info@zeropack.id"
-              className="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors group"
+              className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg transition-all duration-300 group"
             >
               <Mail className="h-5 w-5 group-hover:scale-110 transition-transform" />
               <span className="font-medium">Email</span>

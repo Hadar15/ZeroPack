@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Droplet } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { ProductOrderModal } from "@/components/ProductOrderModal";
 
 interface Product {
   category: string;
@@ -60,10 +62,24 @@ const products: (Product & { status?: 'available' | 'coming-soon' })[] = [
   }
 ];
 
+import { useNavigate } from "react-router-dom";
+import { ChevronLeft } from "lucide-react";
+
 export default function Products() {
+  const navigate = useNavigate();
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50/50 via-white to-green-50/30">
-      <div className="container max-w-5xl mx-auto px-4 py-24">
+      <div className="container max-w-7xl mx-auto px-4 py-24">
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors mb-8 group"
+        >
+          <ChevronLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+          <span>Kembali</span>
+        </button>
+
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -81,7 +97,7 @@ export default function Products() {
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product, index) => (
             <motion.div
               key={product.name}
@@ -138,15 +154,13 @@ export default function Products() {
                         </p>
                       </div>
 
-                      <a
-                        href={`https://wa.me/your-number?text=Halo, saya tertarik dengan produk ${product.name}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <button
+                        onClick={() => setSelectedProduct(product)}
                         className="flex items-center justify-center gap-2 w-full py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors group"
                       >
-                        Order via WhatsApp
+                        Pesan Sekarang
                         <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                      </a>
+                      </button>
                     </>
                   )}
                 </div>
@@ -155,6 +169,14 @@ export default function Products() {
           ))}
         </div>
       </div>
+
+      {selectedProduct && (
+        <ProductOrderModal
+          isOpen={Boolean(selectedProduct)}
+          onClose={() => setSelectedProduct(null)}
+          product={selectedProduct}
+        />
+      )}
     </div>
   );
 }
