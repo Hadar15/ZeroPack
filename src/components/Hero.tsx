@@ -1,24 +1,22 @@
 import { Link } from "react-router-dom";
 import { BadgeCheck, Leaf, Recycle, Package } from "lucide-react";
-import heroImage from "@/assets/hero-bg.jpg";
 import { motion } from "framer-motion";
+import heroImage from "../assets/hero-bg.jpg";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-[90vh] sm:min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background with dynamic gradient overlay */}
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0">
         <div
           className="absolute inset-0 bg-cover bg-center bg-fixed animate-subtle-ken-burns"
           style={{
-            backgroundImage: `url(${heroImage})`,
+            backgroundImage: `url(${heroImage})`
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-transparent to-black/50" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
       </div>
 
-      {/* Content */}
       <div className="container relative z-10 mx-auto px-4 sm:px-6 py-16 sm:py-20 md:py-28 lg:py-32 text-center">
         <div className="max-w-[95%] xs:max-w-[85%] sm:max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto space-y-5 sm:space-y-6 lg:space-y-8 animate-fade-in-up">
           <motion.h1 
@@ -50,7 +48,7 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.6 }}
             className="flex flex-wrap justify-center gap-2.5 xs:gap-3 sm:gap-4 md:gap-6 my-6 sm:my-8 md:my-10"
           >
-            className="flex items-center gap-1.5 text-white/90 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 hover:bg-white/20 hover:border-white/20 transition-all duration-300 group">
+            <div className="flex items-center gap-1.5 text-white/90 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 hover:bg-white/20 hover:border-white/20 transition-all duration-300 group">
               <BadgeCheck className="h-4 w-4 sm:h-5 sm:w-5 text-primary group-hover:scale-110 transition-transform duration-300" />
               <span className="text-[0.8rem] sm:text-[0.9rem] whitespace-nowrap">Transparan Dampak</span>
             </div>
@@ -68,7 +66,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
-            className="flex flex-col xs:flex-row items-center justify-center gap-3 sm:gap-4 px-4 xs:px-0"
+            className="flex flex-col xs:flex-row items-center justify-center gap-3 xs:gap-4 sm:gap-6 px-4 xs:px-0"
           >
             <Link
               to="/products"
@@ -85,8 +83,6 @@ const Hero = () => {
             </Link>
           </motion.div>
         </div>
-
-
       </div>
     </section>
   );
