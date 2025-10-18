@@ -144,6 +144,7 @@ const Navigation = () => {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden p-2 hover:bg-primary/10 rounded-lg transition-colors"
+            aria-label="Toggle menu"
           >
             <Menu className="w-6 h-6 text-foreground" />
           </button>
@@ -151,9 +152,9 @@ const Navigation = () => {
 
         {/* Mobile Navigation */}
         <div 
-          className={`md:hidden overflow-hidden transition-all duration-300 ${
-            isMobileMenuOpen ? "max-h-[320px] pb-4" : "max-h-0"
-          }`}
+          className={`md:hidden fixed inset-x-0 top-[64px] bg-background/80 backdrop-blur-lg border-b ${
+            isMobileMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
+          } transition-all duration-300`}
         >
           <div className="flex flex-col gap-2">
             {user ? (

@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Package, Clock, CheckCircle, AlertCircle } from "lucide-react";
+import { Package, Clock, CheckCircle, AlertCircle, Users } from "lucide-react";
 import { DashboardProducts } from "@/components/DashboardProducts";
+import { PriceCalculator } from "@/components/PriceCalculator";
 
 const DashboardHome = () => {
   const { user } = useAuth();
@@ -167,6 +168,7 @@ const DashboardHome = () => {
       </Card>
 
       <DashboardProducts />
+      <PriceCalculator />
     </>
   );
 };
