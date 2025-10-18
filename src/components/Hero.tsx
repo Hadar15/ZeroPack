@@ -73,7 +73,7 @@ const Hero = () => {
           >
             <Link
               to="/products"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-sm text-white border border-white/20 rounded-full font-medium hover:bg-white/20 transition-all duration-300 hover:scale-105"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-black/20 backdrop-blur-sm text-white/90 border border-white/30 rounded-full font-medium hover:bg-black/30 hover:border-white/40 hover:text-white transition-all duration-300 hover:scale-105 shadow-lg"
             >
               <Package className="w-5 h-5" />
               <span>Lihat Produk</span>
