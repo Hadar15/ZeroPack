@@ -22,22 +22,39 @@ const Hero = () => {
       {/* Content */}
       <div className="container relative z-10 mx-auto px-6 py-32 text-center">
         <div className="max-w-4xl mx-auto space-y-8 animate-fade-in-up">
-          <h1 className="text-5xl md:text-7xl font-bold text-foreground leading-tight">
-            Selamatkan Bumi dari
-            <br />
-            <span className="text-primary">Plastik Sekali Pakai</span>
-          </h1>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="backdrop-blur-sm bg-white/10 px-6 py-3 rounded-full inline-block mb-6"
+          >
+            <p className="text-lg md:text-xl font-medium text-foreground/90">
+              Selamatkan Bumi dari Plastik Sekali Pakai
+            </p>
+          </motion.div>
 
-          <h2 className="text-3xl md:text-4xl font-semibold text-primary">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-5xl md:text-7xl font-bold text-foreground leading-tight tracking-tight"
+          >
             Isi Ulang Higienis,
             <br />
-            Bumi Lebih Sehat
-          </h2>
+            <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+              Bumi Lebih Sehat
+            </span>
+          </motion.h1>
 
-          <p className="text-xl md:text-2xl text-foreground/70 max-w-2xl mx-auto leading-relaxed">
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-xl md:text-2xl text-foreground/80 max-w-2xl mx-auto leading-relaxed font-light"
+          >
             Zero Pack memotong sampah plastik harian dengan sistem isi ulang higienis & terjadwal. 
             Kamu pakai seperti biasa, Bumi bernapas lebih lega.
-          </p>
+          </motion.p>
 
           <div className="flex flex-wrap justify-center gap-8 my-12">
             <div className="flex items-center gap-2 text-foreground/70">
