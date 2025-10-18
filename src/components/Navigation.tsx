@@ -20,9 +20,7 @@ const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
 
-  const publicLinks = [
-    { name: "Produk", path: "/products" },
-  ];
+  const publicLinks: { name: string; path: string }[] = [];
 
   const privateLinks = [
     { name: "Dashboard", path: "/dashboard" },

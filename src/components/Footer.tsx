@@ -4,8 +4,10 @@ import { motion } from "framer-motion";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-b from-green-50 via-green-50/50 to-green-100/20 border-t border-green-100">
-      <div className="container mx-auto px-4 py-16">
+    <footer className="relative overflow-hidden bg-gradient-to-b from-green-900 to-green-800 text-white border-t border-green-700/30">
+      <div className="absolute inset-0 bg-[url('/src/assets/noise.png')] opacity-5"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-green-600/20 via-transparent to-green-950/30"></div>
+      <div className="container mx-auto px-4 py-16 relative">
         <div className="max-w-md mx-auto text-center space-y-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -17,17 +19,17 @@ const Footer = () => {
               to="/" 
               className="inline-flex items-center gap-2 group"
             >
-              <div className="p-2 bg-green-100 rounded-xl group-hover:bg-green-200 transition-colors duration-300">
-                <Leaf className="h-6 w-6 text-green-600" />
+              <div className="p-2 bg-white/10 rounded-xl group-hover:bg-white/20 transition-colors duration-300">
+                <Leaf className="h-6 w-6 text-white" />
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent">
+              <span className="text-2xl font-bold text-white">
                 Zero Pack
               </span>
             </Link>
           </motion.div>
           
           <motion.p 
-            className="text-gray-600"
+            className="text-gray-300"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
