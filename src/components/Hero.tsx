@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { BadgeCheck, Leaf, Recycle } from "lucide-react";
+import { BadgeCheck, Leaf, Recycle, Package } from "lucide-react";
 import heroImage from "@/assets/hero-bg.jpg";
+import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
@@ -15,7 +16,7 @@ const Hero = () => {
           backgroundAttachment: "fixed",
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/80 to-background/95" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/60 to-background/70" />
       </div>
 
       {/* Content */}
@@ -53,12 +54,21 @@ const Hero = () => {
             </div>
           </div>
 
-          <Link
-            to="/auth"
-            className="inline-block px-8 py-4 bg-primary text-primary-foreground rounded-full font-semibold text-lg hover:shadow-xl hover:scale-105 transition-all"
-          >
-            Mulai Sekarang
-          </Link>
+          <div className="flex items-center justify-center gap-4">
+            <Link
+              to="/products"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-primary border-2 border-primary rounded-full font-semibold hover:bg-primary hover:text-white transition-all duration-300 hover:scale-105"
+            >
+              <Package className="w-5 h-5" />
+              <span>Produk</span>
+            </Link>
+            <Link
+              to="/auth"
+              className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded-full font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300"
+            >
+              Mulai Sekarang
+            </Link>
+          </div>
         </div>
 
         {/* Scroll indicator */}
