@@ -15,6 +15,7 @@ import AuthSelection from "./pages/AuthSelection";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import AuthCallback from "./pages/AuthCallback";
+import Products from "./pages/Products";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ const App = () => (
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<Index />} />
+            <Route path="/products" element={<Products />} />
             <Route path="/auth" element={<AuthSelection />} />
             <Route path="/auth/callback" element={<AuthCallback />} />
             <Route path="/signin" element={<SignIn />} />

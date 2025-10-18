@@ -20,15 +20,15 @@ const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
 
-  const privateLinks = [
-    { name: "Dashboard", path: "/dashboard" },
-  ];
-
   const publicLinks = [
     { name: "Produk", path: "/products" },
   ];
 
-  const navLinks = user ? [...publicLinks, ...privateLinks] : publicLinks;
+  const privateLinks = [
+    { name: "Dashboard", path: "/dashboard" },
+  ];
+
+  const navLinks = [...publicLinks, ...(user ? privateLinks : [])];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,7 +63,7 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            {user && navLinks.map((link) => (
+            {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
