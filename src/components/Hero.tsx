@@ -16,7 +16,7 @@ const Hero = () => {
           backgroundAttachment: "fixed",
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/60 to-background/70 backdrop-blur-[1px]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/25 via-background/20 to-background/25" />
       </div>
 
       {/* Content */}
