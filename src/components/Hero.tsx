@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[90vh] sm:min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background with parallax effect */}
       <div
         className="absolute inset-0 z-0"
@@ -16,32 +16,17 @@ const Hero = () => {
           backgroundAttachment: "fixed",
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/50 to-background/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/60 to-background/70 backdrop-blur-[1px]" />
       </div>
 
       {/* Content */}
-      <div className="container relative z-10 mx-auto px-6 py-32 text-center">
-        <div className="max-w-4xl mx-auto space-y-8 animate-fade-in-up">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="relative inline-block mb-4"
-          >
-            <div className="absolute inset-0 bg-white/10 backdrop-blur-[2px] rounded-lg -skew-y-1 transform" />
-            <p className="relative px-6 py-2 text-lg md:text-xl font-medium text-white/90 flex items-center gap-2">
-              <span className="w-4 h-4 rounded-full bg-primary/30 backdrop-blur-sm flex items-center justify-center">
-                <span className="w-2 h-2 rounded-full bg-primary" />
-              </span>
-              Selamatkan Bumi dari Plastik Sekali Pakai
-            </p>
-          </motion.div>
-
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 py-16 sm:py-24 md:py-32 text-center">
+        <div className="max-w-5xl mx-auto space-y-6 sm:space-y-8 animate-fade-in-up">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-5xl md:text-7xl font-bold text-foreground leading-tight tracking-tight"
+            transition={{ duration: 0.6 }}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight tracking-tight px-4"
           >
             Isi Ulang Higienis,
             <br />
@@ -60,36 +45,46 @@ const Hero = () => {
             Kamu pakai seperti biasa, Bumi bernapas lebih lega.
           </motion.p>
 
-          <div className="flex flex-wrap justify-center gap-8 my-12">
-            <div className="flex items-center gap-2 text-foreground/70">
-              <BadgeCheck className="h-6 w-6 text-primary" />
-              <span>Transparan Dampak</span>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="flex flex-wrap justify-center gap-6 sm:gap-8 my-8 sm:my-12"
+          >
+            <div className="flex items-center gap-2 text-foreground/80 bg-white/5 backdrop-blur-sm px-4 py-2 rounded-full">
+              <BadgeCheck className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+              <span className="text-sm sm:text-base">Transparan Dampak</span>
             </div>
-            <div className="flex items-center gap-2 text-foreground/70">
-              <Leaf className="h-6 w-6 text-primary" />
-              <span>Higienis & Aman</span>
+            <div className="flex items-center gap-2 text-foreground/80 bg-white/5 backdrop-blur-sm px-4 py-2 rounded-full">
+              <Leaf className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+              <span className="text-sm sm:text-base">Higienis & Aman</span>
             </div>
-            <div className="flex items-center gap-2 text-foreground/70">
-              <Recycle className="h-6 w-6 text-primary" />
-              <span>Hemat Tanpa Ribet</span>
+            <div className="flex items-center gap-2 text-foreground/80 bg-white/5 backdrop-blur-sm px-4 py-2 rounded-full">
+              <Recycle className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+              <span className="text-sm sm:text-base">Hemat Tanpa Ribet</span>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="flex items-center justify-center gap-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
+          >
             <Link
               to="/products"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-primary border-2 border-primary rounded-full font-semibold hover:bg-primary hover:text-white transition-all duration-300 hover:scale-105"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-sm text-white border border-white/20 rounded-full font-medium hover:bg-white/20 transition-all duration-300 hover:scale-105"
             >
               <Package className="w-5 h-5" />
-              <span>Produk</span>
+              <span>Lihat Produk</span>
             </Link>
             <Link
               to="/auth"
-              className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded-full font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300"
+              className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground rounded-full font-medium hover:shadow-xl hover:scale-105 transition-all duration-300"
             >
               Mulai Sekarang
             </Link>
-          </div>
+          </motion.div>
         </div>
 
         {/* Scroll indicator */}
