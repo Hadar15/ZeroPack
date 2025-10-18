@@ -41,8 +41,8 @@ const Navigation = () => {
     <nav 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled 
-          ? "bg-background/60 backdrop-blur-md shadow-sm" 
-          : "backdrop-blur-sm bg-background/5"
+          ? "bg-background shadow-lg" 
+          : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-6">
@@ -51,10 +51,20 @@ const Navigation = () => {
             to="/" 
             className="flex items-center gap-3 group"
           >
-            <div className="p-2 bg-primary/10 rounded-xl group-hover:bg-primary/20 transition-all duration-300">
-              <Leaf className="w-6 h-6 text-primary group-hover:scale-110 transition-transform duration-300" />
+            <div className={`p-2 rounded-xl transition-all duration-300 ${
+              isScrolled 
+                ? "bg-primary/10 group-hover:bg-primary/20" 
+                : "bg-white/10 group-hover:bg-white/20"
+            }`}>
+              <Leaf className={`w-6 h-6 group-hover:scale-110 transition-all duration-300 ${
+                isScrolled ? "text-primary" : "text-white"
+              }`} />
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-primary/90 to-primary bg-clip-text text-transparent">
+            <span className={`text-xl font-bold transition-all duration-500 ${
+              isScrolled 
+                ? "bg-gradient-to-r from-primary/90 to-primary bg-clip-text text-transparent" 
+                : "text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]"
+            }`}>
               ZeroPack
             </span>
           </Link>
@@ -66,14 +76,20 @@ const Navigation = () => {
                 key={link.path}
                 to={link.path}
                 className={`text-[15px] font-medium transition-all duration-300 relative group py-1 ${
-                  location.pathname === link.path
-                    ? "text-primary"
-                    : "text-foreground/80 hover:text-primary"
+                  isScrolled
+                    ? location.pathname === link.path
+                      ? "text-primary"
+                      : "text-foreground/80 hover:text-primary"
+                    : "text-white hover:text-white/80"
                 }`}
               >
                 {link.name}
                 <span
-                  className={`absolute bottom-0 left-0 w-full h-0.5 rounded-full bg-primary/90 transition-all duration-300 ${
+                  className={`absolute bottom-0 left-0 w-full h-0.5 rounded-full transition-all duration-300 ${
+                    isScrolled 
+                      ? "bg-primary/90"
+                      : "bg-white/90"
+                  } ${
                     location.pathname === link.path
                       ? "scale-x-100 opacity-100"
                       : "scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-100"
@@ -131,9 +147,11 @@ const Navigation = () => {
             ) : (
               <Link
                 to="/auth"
-                className="px-6 py-2.5 bg-primary/95 text-primary-foreground rounded-lg font-medium 
-                         hover:bg-primary hover:shadow-md hover:shadow-primary/10 
-                         active:scale-[0.98] transition-all duration-300"
+                className={`px-6 py-2.5 rounded-lg font-medium active:scale-[0.98] transition-all duration-300 ${
+                  isScrolled
+                    ? "bg-primary/95 text-primary-foreground hover:bg-primary hover:shadow-md hover:shadow-primary/10"
+                    : "bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
+                }`}
               >
                 Mulai Sekarang
               </Link>

@@ -27,7 +27,7 @@ const Hero = () => {
           >
             Isi Ulang Higienis,
             <br />
-            <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+            <span className="text-white drop-shadow-[0_2px_10px_rgba(255,255,255,0.3)]">
               Bumi Lebih Sehat
             </span>
           </motion.h1>
