@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Package } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
+import { sendOrderToGoogleSheets, sendUserToGoogleSheets } from "@/lib/googleSheets";
 
 const OrderForm = () => {
   const { toast } = useToast();
@@ -32,7 +33,9 @@ const OrderForm = () => {
     setIsSubmitting(true);
 
     try {
-      // Insert order data to Supabase
+      const timestamp = new Date().toISOString();
+      
+      // 1. Insert order data to Supabase
       const { data, error } = await supabase
         .from('orders')
         .insert([
@@ -40,16 +43,43 @@ const OrderForm = () => {
             user_id: user?.id,
             status: 'pending',
             ...formData,
-            created_at: new Date().toISOString(),
+            created_at: timestamp,
             residents: parseInt(formData.residents),
           }
         ]);
 
       if (error) throw error;
 
+      // 2. Send order data to Google Sheets
+      const orderDataForSheets = {
+        timestamp,
+        user_id: user?.id || "",
+        email: user?.email || "",
+        name: formData.name,
+        address: formData.address,
+        phone: formData.phone,
+        residents: formData.residents,
+        products: formData.products,
+        package: formData.package,
+        status: 'pending'
+      };
+      
+      await sendOrderToGoogleSheets(orderDataForSheets);
+
+      // 3. Send user authentication data to Google Sheets (jika belum ada)
+      const userDataForSheets = {
+        timestamp,
+        user_id: user?.id || "",
+        email: user?.email || "",
+        name: user?.user_metadata?.full_name || user?.user_metadata?.name || formData.name,
+        provider: user?.app_metadata?.provider || "email"
+      };
+      
+      await sendUserToGoogleSheets(userDataForSheets);
+
       toast({
         title: "Pesanan Berhasil! 🌿",
-        description: "Pesanan Anda telah kami terima. Kami akan segera menghubungi Anda melalui WhatsApp untuk konfirmasi.",
+        description: "Pesanan Anda telah kami terima dan tersimpan. Kami akan segera menghubungi Anda melalui WhatsApp untuk konfirmasi.",
       });
 
       // Reset form
