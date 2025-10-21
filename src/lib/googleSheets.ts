@@ -33,6 +33,19 @@ export interface UserData {
  */
 export async function sendOrderToGoogleSheets(orderData: OrderData): Promise<boolean> {
   try {
+    // Format timestamp yang lebih readable
+    const formattedData = {
+      ...orderData,
+      timestamp: new Date(orderData.timestamp).toLocaleString('id-ID', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      })
+    };
+
     const response = await fetch(GOOGLE_SHEETS_ORDERS_API, {
       method: "POST",
       headers: {
@@ -40,28 +53,75 @@ export async function sendOrderToGoogleSheets(orderData: OrderData): Promise<boo
         "Accept": "application/json",
       },
       body: JSON.stringify({
-        data: orderData
+        data: formattedData
       }),
     });
 
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error("SheetDB Error:", errorText);
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const result = await response.json();
-    console.log("Order sent to Google Sheets:", result);
+    console.log("✅ Order sent to Google Sheets:", result);
     return true;
   } catch (error) {
-    console.error("Error sending order to Google Sheets:", error);
+    console.error("❌ Error sending order to Google Sheets:", error);
     return false;
   }
 }
 
 /**
- * Kirim data user authentication ke Google Sheets
+ * Cek apakah user sudah terdaftar di Google Sheets
+ */
+export async function checkUserExistsInGoogleSheets(userId: string): Promise<boolean> {
+  try {
+    const response = await fetch(`${GOOGLE_SHEETS_USERS_API}/search?user_id=${userId}`, {
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      return false;
+    }
+
+    const result = await response.json();
+    return result && result.length > 0;
+  } catch (error) {
+    console.error("Error checking user in Google Sheets:", error);
+    return false;
+  }
+}
+
+/**
+ * Kirim data user authentication ke Google Sheets (hanya untuk user baru)
  */
 export async function sendUserToGoogleSheets(userData: UserData): Promise<boolean> {
   try {
+    // Cek apakah user sudah ada
+    const userExists = await checkUserExistsInGoogleSheets(userData.user_id);
+    
+    if (userExists) {
+      console.log("ℹ️ User sudah terdaftar, skip kirim ke Google Sheets");
+      return true; // Return true karena user sudah ada (bukan error)
+    }
+
+    // Format timestamp yang lebih readable
+    const formattedData = {
+      ...userData,
+      timestamp: new Date(userData.timestamp).toLocaleString('id-ID', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      })
+    };
+
     const response = await fetch(GOOGLE_SHEETS_USERS_API, {
       method: "POST",
       headers: {
@@ -69,19 +129,21 @@ export async function sendUserToGoogleSheets(userData: UserData): Promise<boolea
         "Accept": "application/json",
       },
       body: JSON.stringify({
-        data: userData
+        data: formattedData
       }),
     });
 
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error("SheetDB Error:", errorText);
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const result = await response.json();
-    console.log("User sent to Google Sheets:", result);
+    console.log("✅ User baru berhasil terdaftar di Google Sheets:", result);
     return true;
   } catch (error) {
-    console.error("Error sending user to Google Sheets:", error);
+    console.error("❌ Error sending user to Google Sheets:", error);
     return false;
   }
 }
