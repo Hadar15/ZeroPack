@@ -7,7 +7,6 @@ import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Package } from "lucide-react";
-import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
 import { sendOrderToGoogleSheets } from "@/lib/googleSheets";
 
@@ -34,37 +33,12 @@ const OrderForm = () => {
 
     try {
       if (!user?.id) {
-        throw new Error("User tidak terautentikasi");
+        throw new Error("Silakan login terlebih dahulu untuk melakukan pemesanan");
       }
 
       const timestamp = new Date().toISOString();
       
-      // 1. Insert order data to Supabase
-      const { error: supabaseError } = await supabase
-        .from('orders')
-        .insert([
-          {
-            user_id: user.id,
-            status: 'pending',
-            name: formData.name,
-            address: formData.address,
-            phone: formData.phone,
-            residents: parseInt(formData.residents),
-            products: formData.products,
-            package: formData.package,
-            created_at: timestamp,
-          }
-        ])
-        .select();
-
-      if (supabaseError) {
-        console.error("Supabase error:", supabaseError);
-        throw supabaseError;
-      }
-
-      console.log("✅ Order saved to Supabase");
-
-      // 2. Send order data to Google Sheets
+      // Kirim order data langsung ke Google Sheets (tanpa Supabase)
       const orderDataForSheets = {
         timestamp,
         user_id: user.id,
@@ -78,10 +52,14 @@ const OrderForm = () => {
         status: 'pending'
       };
       
+      console.log("📤 Mengirim order ke Google Sheets...");
       const orderSent = await sendOrderToGoogleSheets(orderDataForSheets);
+      
       if (!orderSent) {
-        console.warn("⚠️ Gagal kirim order ke Google Sheets, tapi order sudah tersimpan di Supabase");
+        throw new Error("Gagal mengirim pesanan ke Google Sheets");
       }
+
+      console.log("✅ Order berhasil dikirim ke Google Sheets");
 
       // Tampilkan sukses
       toast({
