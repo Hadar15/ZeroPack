@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Package } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
-import { sendOrderToGoogleSheets, sendUserToGoogleSheets } from "@/lib/googleSheets";
+import { sendOrderToGoogleSheets } from "@/lib/googleSheets";
 
 const OrderForm = () => {
   const { toast } = useToast();
@@ -33,28 +33,42 @@ const OrderForm = () => {
     setIsSubmitting(true);
 
     try {
+      if (!user?.id) {
+        throw new Error("User tidak terautentikasi");
+      }
+
       const timestamp = new Date().toISOString();
       
       // 1. Insert order data to Supabase
-      const { data, error } = await supabase
+      const { error: supabaseError } = await supabase
         .from('orders')
         .insert([
           {
-            user_id: user?.id,
+            user_id: user.id,
             status: 'pending',
-            ...formData,
-            created_at: timestamp,
+            name: formData.name,
+            address: formData.address,
+            phone: formData.phone,
             residents: parseInt(formData.residents),
+            products: formData.products,
+            package: formData.package,
+            created_at: timestamp,
           }
-        ]);
+        ])
+        .select();
 
-      if (error) throw error;
+      if (supabaseError) {
+        console.error("Supabase error:", supabaseError);
+        throw supabaseError;
+      }
+
+      console.log("✅ Order saved to Supabase");
 
       // 2. Send order data to Google Sheets
       const orderDataForSheets = {
         timestamp,
-        user_id: user?.id || "",
-        email: user?.email || "",
+        user_id: user.id,
+        email: user.email || "",
         name: formData.name,
         address: formData.address,
         phone: formData.phone,
@@ -64,19 +78,12 @@ const OrderForm = () => {
         status: 'pending'
       };
       
-      await sendOrderToGoogleSheets(orderDataForSheets);
+      const orderSent = await sendOrderToGoogleSheets(orderDataForSheets);
+      if (!orderSent) {
+        console.warn("⚠️ Gagal kirim order ke Google Sheets, tapi order sudah tersimpan di Supabase");
+      }
 
-      // 3. Send user authentication data to Google Sheets (jika belum ada)
-      const userDataForSheets = {
-        timestamp,
-        user_id: user?.id || "",
-        email: user?.email || "",
-        name: user?.user_metadata?.full_name || user?.user_metadata?.name || formData.name,
-        provider: user?.app_metadata?.provider || "email"
-      };
-      
-      await sendUserToGoogleSheets(userDataForSheets);
-
+      // Tampilkan sukses
       toast({
         title: "Pesanan Berhasil! 🌿",
         description: "Pesanan Anda telah kami terima dan tersimpan. Kami akan segera menghubungi Anda melalui WhatsApp untuk konfirmasi.",
@@ -93,10 +100,10 @@ const OrderForm = () => {
       });
       (e.target as HTMLFormElement).reset();
     } catch (error) {
-      console.error('Error submitting order:', error);
+      console.error('❌ Error submitting order:', error);
       toast({
         title: "Gagal mengirim pesanan",
-        description: "Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.",
+        description: error instanceof Error ? error.message : "Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.",
         variant: "destructive",
       });
     } finally {

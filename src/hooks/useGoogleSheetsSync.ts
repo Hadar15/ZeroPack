@@ -15,27 +15,38 @@ import { sendUserToGoogleSheets } from "@/lib/googleSheets";
 export function useGoogleSheetsSync() {
   const { user } = useAuth();
   const hasSynced = useRef(false);
+  const syncInProgress = useRef(false);
 
   useEffect(() => {
-    if (user && !hasSynced.current) {
-      // Kirim data user ke Google Sheets (hanya sekali)
+    // Hanya jalankan jika user ada, belum pernah sync, dan tidak sedang sync
+    if (user && !hasSynced.current && !syncInProgress.current) {
+      syncInProgress.current = true;
+      
+      // Kirim data user ke Google Sheets (akan di-check dulu apakah sudah ada)
       const syncUserData = async () => {
         try {
-          await sendUserToGoogleSheets({
+          const result = await sendUserToGoogleSheets({
             timestamp: new Date().toISOString(),
             user_id: user.id,
             email: user.email || "",
             name: user.user_metadata?.full_name || user.user_metadata?.name || "",
             provider: user.app_metadata?.provider || "email"
           });
-          hasSynced.current = true;
-          console.log("✅ User data synced to Google Sheets");
+          
+          if (result) {
+            hasSynced.current = true;
+          }
         } catch (error) {
           console.error("❌ Error syncing user to Google Sheets:", error);
+        } finally {
+          syncInProgress.current = false;
         }
       };
 
-      syncUserData();
+      // Delay sedikit untuk menghindari multiple calls
+      const timeoutId = setTimeout(syncUserData, 500);
+      
+      return () => clearTimeout(timeoutId);
     }
   }, [user]);
 }

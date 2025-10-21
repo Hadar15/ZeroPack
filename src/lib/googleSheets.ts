@@ -34,16 +34,12 @@ export interface UserData {
 export async function sendOrderToGoogleSheets(orderData: OrderData): Promise<boolean> {
   try {
     // Format timestamp yang lebih readable
+    const date = new Date(orderData.timestamp);
+    const formattedTimestamp = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+    
     const formattedData = {
       ...orderData,
-      timestamp: new Date(orderData.timestamp).toLocaleString('id-ID', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-      })
+      timestamp: formattedTimestamp
     };
 
     const response = await fetch(GOOGLE_SHEETS_ORDERS_API, {
@@ -59,7 +55,7 @@ export async function sendOrderToGoogleSheets(orderData: OrderData): Promise<boo
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("SheetDB Error:", errorText);
+      console.error("❌ SheetDB Error:", errorText);
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
@@ -110,16 +106,12 @@ export async function sendUserToGoogleSheets(userData: UserData): Promise<boolea
     }
 
     // Format timestamp yang lebih readable
+    const date = new Date(userData.timestamp);
+    const formattedTimestamp = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+    
     const formattedData = {
       ...userData,
-      timestamp: new Date(userData.timestamp).toLocaleString('id-ID', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-      })
+      timestamp: formattedTimestamp
     };
 
     const response = await fetch(GOOGLE_SHEETS_USERS_API, {
@@ -135,7 +127,7 @@ export async function sendUserToGoogleSheets(userData: UserData): Promise<boolea
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("SheetDB Error:", errorText);
+      console.error("❌ SheetDB Error:", errorText);
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
