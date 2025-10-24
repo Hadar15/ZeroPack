@@ -47,7 +47,7 @@ const Footer = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <a
-              href="https://wa.me/your-number"
+              href="https://wa.me/628976009859"
               className="flex items-center gap-2 bg-green-500 hover:bg-green-400 text-white px-4 py-2 rounded-lg transition-all duration-300 group"
               target="_blank"
               rel="noopener noreferrer"

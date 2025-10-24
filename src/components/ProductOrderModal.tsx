@@ -44,7 +44,7 @@ Alamat: ${address}
 ${notes ? `\nCatatan: ${notes}` : ""}`;
 
     window.open(
-      `https://wa.me/your-number?text=${encodeURIComponent(message)}`,
+      `https://wa.me/628976009859?text=${encodeURIComponent(message)}`,
       "_blank"
     );
     onClose();
