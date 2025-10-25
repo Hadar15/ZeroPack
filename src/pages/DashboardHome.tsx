@@ -1,28 +1,39 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Package, Clock, CheckCircle, AlertCircle, Users } from "lucide-react";
+import { Package, Clock, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 import { DashboardProducts } from "@/components/DashboardProducts";
 import { PriceCalculator } from "@/components/PriceCalculator";
+import { useEffect, useState } from "react";
+import { getOrdersFromGoogleSheets, OrderData } from "@/lib/googleSheets";
 
 const DashboardHome = () => {
   const { user } = useAuth();
-  const orders = [
-    {
-      id: "001",
-      product: "Paket Lengkap",
-      status: "completed",
-      date: "2025-01-10",
-      nextDelivery: "2025-01-17",
-    },
-    {
-      id: "002",
-      product: "Sabun Cair + Detergen",
-      status: "processing",
-      date: "2025-01-13",
-      nextDelivery: "2025-01-20",
-    },
-  ];
+  const [orders, setOrders] = useState<OrderData[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch orders from Google Sheets
+  useEffect(() => {
+    const fetchOrders = async () => {
+      if (!user?.id) return;
+      
+      try {
+        setLoading(true);
+        const allOrders = await getOrdersFromGoogleSheets();
+        // Filter orders untuk user ini saja
+        const userOrders = allOrders.filter(order => order.user_id === user.id);
+        // Sort by timestamp descending (newest first)
+        userOrders.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+        setOrders(userOrders);
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrders();
+  }, [user?.id]);
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -44,9 +55,9 @@ const DashboardHome = () => {
       case "processing":
         return "Dalam Proses";
       case "pending":
-        return "Menunggu";
+        return "Menunggu Konfirmasi";
       default:
-        return "Unknown";
+        return status;
     }
   };
 
@@ -61,6 +72,31 @@ const DashboardHome = () => {
       default:
         return "bg-muted text-muted-foreground";
     }
+  };
+
+  // Hitung statistik
+  const totalOrders = orders.length;
+  const totalPlasticSaved = totalOrders * 4; // Estimasi 4 botol per order
+  
+  // Format produk name
+  const getProductName = (productCode: string) => {
+    const products: Record<string, string> = {
+      'soap': 'Sabun Cair',
+      'detergent': 'Detergen',
+      'floor-cleaner': 'Pembersih Lantai',
+      'dish-soap': 'Sabun Cuci Piring',
+      'all': 'Paket Lengkap (Semua Produk)'
+    };
+    return products[productCode] || productCode;
+  };
+
+  // Format package name
+  const getPackageName = (packageCode: string) => {
+    const packages: Record<string, string> = {
+      'weekly': 'Mingguan (7 Hari)',
+      'monthly': 'Bulanan (30 Hari)'
+    };
+    return packages[packageCode] || packageCode;
   };
 
   return (
@@ -96,7 +132,7 @@ const DashboardHome = () => {
         <Card>
           <CardHeader className="pb-3">
             <CardDescription>Total Pesanan</CardDescription>
-            <CardTitle className="text-4xl text-primary">12</CardTitle>
+            <CardTitle className="text-4xl text-primary">{totalOrders}</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">Sejak bergabung</p>
@@ -106,7 +142,7 @@ const DashboardHome = () => {
         <Card>
           <CardHeader className="pb-3">
             <CardDescription>Plastik Terhemat</CardDescription>
-            <CardTitle className="text-4xl text-primary">48</CardTitle>
+            <CardTitle className="text-4xl text-primary">{totalPlasticSaved}</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">Botol plastik 🌿</p>
@@ -115,11 +151,13 @@ const DashboardHome = () => {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardDescription>Pengantaran Berikutnya</CardDescription>
-            <CardTitle className="text-4xl text-primary">3</CardTitle>
+            <CardDescription>Status Pesanan</CardDescription>
+            <CardTitle className="text-4xl text-primary">
+              {orders.filter(o => o.status === 'pending').length}
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground">Hari lagi</p>
+            <p className="text-sm text-muted-foreground">Menunggu konfirmasi</p>
           </CardContent>
         </Card>
       </div>
@@ -128,42 +166,70 @@ const DashboardHome = () => {
         <CardHeader>
           <CardTitle>Riwayat Pesanan</CardTitle>
           <CardDescription>
-            Lihat status dan jadwal pengantaran produkmu
+            Lihat status dan detail pemesananmu
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            {orders.map((order) => (
-              <div
-                key={order.id}
-                className="flex items-center justify-between p-4 border border-border rounded-xl hover:shadow-md transition-shadow"
+          {loading ? (
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="w-8 h-8 animate-spin text-primary" />
+              <span className="ml-3 text-muted-foreground">Memuat data pesanan...</span>
+            </div>
+          ) : orders.length === 0 ? (
+            <div className="text-center py-12">
+              <Package className="w-16 h-16 mx-auto text-muted-foreground/50 mb-4" />
+              <p className="text-lg font-medium text-foreground mb-2">
+                Belum ada pesanan
+              </p>
+              <p className="text-sm text-muted-foreground mb-6">
+                Mulai pesanan pertamamu dan selamatkan Bumi dari sampah plastik!
+              </p>
+              <Link
+                to="/dashboard/order"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium 
+                         hover:bg-primary/90 transition-all"
               >
-                <div className="flex items-center gap-4">
-                  {getStatusIcon(order.status)}
-                  <div>
-                    <p className="font-semibold text-foreground">
-                      {order.product}
-                    </p>
-                    <p className="text-sm text-foreground/60">
-                      Order #{order.id} • {order.date}
+                <Package className="w-5 h-5" />
+                <span>Buat Pesanan</span>
+              </Link>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {orders.map((order, index) => (
+                <div
+                  key={`${order.user_id}-${index}`}
+                  className="flex items-center justify-between p-4 border border-border rounded-xl hover:shadow-md transition-shadow"
+                >
+                  <div className="flex items-center gap-4">
+                    {getStatusIcon(order.status)}
+                    <div>
+                      <p className="font-semibold text-foreground">
+                        {getProductName(order.products)}
+                      </p>
+                      <p className="text-sm text-foreground/60">
+                        {order.name} • {order.phone}
+                      </p>
+                      <p className="text-xs text-foreground/50 mt-1">
+                        {getPackageName(order.package)} • {order.residents} penghuni
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <span
+                      className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(
+                        order.status
+                      )}`}
+                    >
+                      {getStatusText(order.status)}
+                    </span>
+                    <p className="text-xs text-foreground/60 mt-2">
+                      Dipesan: {order.timestamp}
                     </p>
                   </div>
                 </div>
-                <div className="text-right">
-                  <span
-                    className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(
-                      order.status
-                    )}`}
-                  >
-                    {getStatusText(order.status)}
-                  </span>
-                  <p className="text-xs text-foreground/60 mt-2">
-                    Pengantaran: {order.nextDelivery}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </CardContent>
       </Card>
 
