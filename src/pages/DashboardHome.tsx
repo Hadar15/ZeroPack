@@ -76,7 +76,7 @@ const DashboardHome = () => {
 
   // Hitung statistik
   const totalOrders = orders.length;
-  const totalPlasticSaved = totalOrders * 4; // Estimasi 4 botol per order
+  const totalPlasticSaved = totalOrders * 200; // 200 gram per order
   
   // Format produk name
   const getProductName = (productCode: string) => {
@@ -145,7 +145,7 @@ const DashboardHome = () => {
             <CardTitle className="text-4xl text-primary">{totalPlasticSaved}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground">Botol plastik 🌿</p>
+            <p className="text-sm text-muted-foreground">Gram plastik 🌿</p>
           </CardContent>
         </Card>
 
