@@ -35,7 +35,7 @@ export const useAuthMiddleware = () => {
         }
 
         // Check email verification status
-        if (!session.user.email_verified && !session.user.app_metadata.provider) {
+        if (session.user.email && !session.user.email_confirmed_at && !session.user.app_metadata.provider) {
           toast({
             variant: "destructive",
             title: "Email belum terverifikasi",
@@ -50,7 +50,11 @@ export const useAuthMiddleware = () => {
         const currentUserAgent = window.navigator.userAgent;
         const storedUserAgent = localStorage.getItem('user_agent');
         
-        if (storedUserAgent && storedUserAgent !== currentUserAgent) {
+        // If no stored user agent, save it (first time login)
+        if (!storedUserAgent) {
+          localStorage.setItem('user_agent', currentUserAgent);
+        } else if (storedUserAgent !== currentUserAgent) {
+          // Only logout if user agent is different from stored one
           toast({
             variant: "destructive",
             title: "Sesi Mencurigakan Terdeteksi",
@@ -60,8 +64,6 @@ export const useAuthMiddleware = () => {
           navigate('/auth');
           return;
         }
-
-        localStorage.setItem('user_agent', currentUserAgent);
 
       } catch (error) {
         console.error('Session check failed:', error);

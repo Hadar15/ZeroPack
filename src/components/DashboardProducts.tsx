@@ -3,6 +3,7 @@ import { Package } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useState } from "react";
 import { ProductOrderModal } from "./ProductOrderModal";
+import productImage from "@/assets/amenni.jpg";
 
 const products = [
   {
@@ -11,7 +12,7 @@ const products = [
     description: "Sampo herbal dengan ekstrak alami untuk rambut sehat dan berkilau",
     price: "25.000",
     volume: "1L",
-    image: "/src/assets/products/shampoo.jpg"
+    image: productImage
   },
   {
     id: 2,
@@ -19,7 +20,7 @@ const products = [
     description: "Sabun mandi natural dengan formula lembut untuk kulit sehat",
     price: "15.000",
     volume: "1L",
-    image: "/src/assets/products/bodysoap.jpg"
+    image: productImage
   }
 ];
 

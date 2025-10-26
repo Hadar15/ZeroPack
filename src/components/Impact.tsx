@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import dattsImage from "@/assets/datts.jpg";
+import animmImage from "@/assets/animm.jpg";
 
 interface ImpactData {
   plastic_kg: number;
@@ -194,7 +194,7 @@ export function Impact() {
             >
               <div className="relative rounded-2xl overflow-hidden shadow-xl w-full">
                 <img
-                  src={dattsImage}
+                  src={animmImage}
                   alt="Dampak Kolektif"
                   className="w-full h-auto max-h-[400px] object-cover"
                 />

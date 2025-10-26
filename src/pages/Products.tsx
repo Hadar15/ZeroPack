@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Droplet } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { ProductOrderModal } from "@/components/ProductOrderModal";
+import productImage from "@/assets/amenni.jpg";
 
 interface Product {
   category: string;
@@ -24,7 +25,7 @@ const products: (Product & { status?: 'available' | 'coming-soon' })[] = [
     volume: "1L",
     plasticSaved: "30g",
     bottleEquivalent: "2",
-    image: "/src/assets/products/shampoo.jpg",
+    image: productImage,
     status: "available"
   },
   {
@@ -35,7 +36,7 @@ const products: (Product & { status?: 'available' | 'coming-soon' })[] = [
     volume: "1L",
     plasticSaved: "25g",
     bottleEquivalent: "2",
-    image: "/src/assets/products/bodysoap.jpg",
+    image: productImage,
     status: "available"
   },
   {
@@ -46,7 +47,7 @@ const products: (Product & { status?: 'available' | 'coming-soon' })[] = [
     volume: "1L",
     plasticSaved: "32g",
     bottleEquivalent: "2",
-    image: "/src/assets/products/conditioner.jpg",
+    image: productImage,
     status: "coming-soon"
   },
   {
@@ -57,7 +58,7 @@ const products: (Product & { status?: 'available' | 'coming-soon' })[] = [
     volume: "1L",
     plasticSaved: "28g",
     bottleEquivalent: "2",
-    image: "/src/assets/products/floorcleaner.jpg",
+    image: productImage,
     status: "coming-soon"
   }
 ];
