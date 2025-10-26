@@ -43,7 +43,7 @@ export function Impact() {
   const currentData = impactData[selectedTimeFrame];
 
   return (
-    <section className="py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
+    <section className="py-12 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -76,23 +76,26 @@ export function Impact() {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-5 gap-12 items-center">
             {/* Left: Content */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
+              className="lg:col-span-3 space-y-8"
             >
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-                Dampak Kolektif Kita
-              </h2>
-              <p className="text-lg text-gray-600 mb-10">
-                Bersama-sama kita sudah menyelamatkan Bumi dari ribuan botol plastik
-              </p>
+              <div>
+                <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
+                  Dampak Kolektif Kita
+                </h2>
+                <p className="text-lg text-gray-600 mb-6">
+                  Bersama-sama kita sudah menyelamatkan Bumi dari ribuan botol plastik
+                </p>
+              </div>
 
               {/* Time frame selector */}
-              <div className="inline-flex bg-white/80 backdrop-blur-sm rounded-xl p-1.5 mb-10 border border-gray-200 shadow-sm">
+              <div className="inline-flex bg-white/80 backdrop-blur-sm rounded-xl p-1.5 border border-gray-200 shadow-sm">
                 {timeFrames.map((timeFrame) => (
                   <motion.button
                     key={timeFrame.id}
@@ -118,8 +121,8 @@ export function Impact() {
                 ))}
               </div>
 
-              {/* Stats display */}
-              <div className="space-y-6">
+              {/* Stats display - Horizontal Layout */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={`plastic-${selectedTimeFrame}`}
@@ -127,17 +130,17 @@ export function Impact() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.4 }}
-                    className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200"
+                    className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200 text-center"
                   >
                     <motion.p 
-                      className="text-5xl font-bold bg-gradient-to-r from-gray-800 to-gray-900 bg-clip-text text-transparent mb-2"
+                      className="text-4xl font-bold bg-gradient-to-r from-gray-800 to-gray-900 bg-clip-text text-transparent mb-2"
                       initial={{ scale: 0.9 }}
                       animate={{ scale: 1 }}
                       transition={{ type: "spring", stiffness: 100 }}
                     >
                       {currentData.plastic_kg}
                     </motion.p>
-                    <p className="text-gray-600 font-medium">kg plastik terselamatkan</p>
+                    <p className="text-sm text-gray-600 font-medium">kg plastik terselamatkan</p>
                   </motion.div>
 
                   <motion.div
@@ -146,17 +149,17 @@ export function Impact() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.4, delay: 0.05 }}
-                    className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200"
+                    className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200 text-center"
                   >
                     <motion.p 
-                      className="text-5xl font-bold bg-gradient-to-r from-gray-800 to-gray-900 bg-clip-text text-transparent mb-2"
+                      className="text-4xl font-bold bg-gradient-to-r from-gray-800 to-gray-900 bg-clip-text text-transparent mb-2"
                       initial={{ scale: 0.9 }}
                       animate={{ scale: 1 }}
                       transition={{ type: "spring", stiffness: 100 }}
                     >
                       {currentData.bottles.toLocaleString()}
                     </motion.p>
-                    <p className="text-gray-600 font-medium">setara botol 500ml</p>
+                    <p className="text-sm text-gray-600 font-medium">setara botol 500ml</p>
                   </motion.div>
 
                   <motion.div
@@ -165,17 +168,17 @@ export function Impact() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.4, delay: 0.1 }}
-                    className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200"
+                    className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200 text-center"
                   >
                     <motion.p 
-                      className="text-5xl font-bold bg-gradient-to-r from-gray-800 to-gray-900 bg-clip-text text-transparent mb-2"
+                      className="text-4xl font-bold bg-gradient-to-r from-gray-800 to-gray-900 bg-clip-text text-transparent mb-2"
                       initial={{ scale: 0.9 }}
                       animate={{ scale: 1 }}
                       transition={{ type: "spring", stiffness: 100 }}
                     >
                       {currentData.refills}
                     </motion.p>
-                    <p className="text-gray-600 font-medium">total refill</p>
+                    <p className="text-sm text-gray-600 font-medium">total refill</p>
                   </motion.div>
                 </AnimatePresence>
               </div>
@@ -187,7 +190,7 @@ export function Impact() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="relative"
+              className="relative lg:col-span-2"
             >
               <div className="relative rounded-2xl overflow-hidden shadow-xl">
                 <img

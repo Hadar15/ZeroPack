@@ -23,7 +23,7 @@ export function PriceCalculator() {
   ];
 
   return (
-    <section className="py-20 px-4 relative overflow-hidden">
+    <section className="py-12 px-4 relative overflow-hidden">
       {/* Subtle animated background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div

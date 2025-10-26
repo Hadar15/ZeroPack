@@ -23,7 +23,7 @@ const Index = () => {
       <Navigation />
       <Hero />
       
-      {/* Smooth gradient transitions between sections */}
+      {/* Smooth gradient transitions between sections - Reduced spacing */}
       <div className="bg-gradient-to-b from-gray-900/5 via-gray-50 to-white">
         <Impact />
       </div>
@@ -36,7 +36,7 @@ const Index = () => {
         <PriceCalculator />
       </div>
       
-      <div className="bg-gradient-to-b from-gray-50 to-white">
+      <div className="bg-gradient-to-b from-gray-50 to-white pt-16">
         <FAQ />
       </div>
       

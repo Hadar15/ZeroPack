@@ -51,7 +51,7 @@ export function WorkflowAndHygiene() {
   ];
 
   return (
-    <div className="w-full py-20 px-4 relative overflow-hidden">
+    <div className="w-full py-12 px-4 relative overflow-hidden">
       {/* Subtle animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -80,7 +80,7 @@ export function WorkflowAndHygiene() {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto space-y-24 relative z-10">
+      <div className="max-w-7xl mx-auto space-y-16 relative z-10">
         
         {/* Section 1: Cara Kerja - Gambar Kiri, Timeline Kanan */}
         <div className="grid lg:grid-cols-2 gap-16 items-center">
