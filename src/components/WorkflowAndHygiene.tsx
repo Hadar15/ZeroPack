@@ -51,8 +51,36 @@ export function WorkflowAndHygiene() {
   ];
 
   return (
-    <div className="w-full py-20 px-4 bg-white">
-      <div className="max-w-7xl mx-auto space-y-24">
+    <div className="w-full py-20 px-4 relative overflow-hidden">
+      {/* Subtle animated background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-64 h-64 bg-gray-100 rounded-full opacity-30 blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            x: [0, 40, 0],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gray-100 rounded-full opacity-25 blur-3xl"
+          animate={{
+            scale: [1, 1.15, 1],
+            x: [0, -30, 0],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto space-y-24 relative z-10">
         
         {/* Section 1: Cara Kerja - Gambar Kiri, Timeline Kanan */}
         <div className="grid lg:grid-cols-2 gap-16 items-center">

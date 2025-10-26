@@ -4,12 +4,38 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { motion } from "framer-motion";
 
 export function FAQ() {
   return (
-    <div className="w-full max-w-4xl mx-auto py-16 px-4">
-      <h2 className="text-3xl font-bold text-center mb-10">Pertanyaan Umum</h2>
-      <Accordion type="single" collapsible>
+    <div className="w-full max-w-4xl mx-auto py-16 px-4 relative">
+      {/* Subtle background accent */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gray-100 rounded-full opacity-20 blur-3xl"
+          animate={{
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </div>
+
+      <motion.h2 
+        className="text-3xl font-bold text-center mb-10 text-gray-900 relative z-10"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+      >
+        Pertanyaan Umum
+      </motion.h2>
+      
+      <div className="relative z-10">
+        <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
           <AccordionTrigger>Bagaimana sistem deposit botol bekerja?</AccordionTrigger>
           <AccordionContent>
@@ -45,6 +71,7 @@ export function FAQ() {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
+      </div>
     </div>
   )
 }

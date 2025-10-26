@@ -23,8 +23,36 @@ export function PriceCalculator() {
   ];
 
   return (
-    <section className="py-20 px-4 bg-white">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-20 px-4 relative overflow-hidden">
+      {/* Subtle animated background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute top-10 right-20 w-72 h-72 bg-gray-100 rounded-full opacity-35 blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            y: [0, -30, 0],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-10 left-20 w-96 h-96 bg-gray-100 rounded-full opacity-25 blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            y: [0, 40, 0],
+          }}
+          transition={{
+            duration: 13,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left: Image */}
           <motion.div

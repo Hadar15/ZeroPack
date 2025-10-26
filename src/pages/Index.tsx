@@ -19,13 +19,27 @@ const Index = () => {
     }
   }, [user, navigate]);
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Navigation />
       <Hero />
-      <Impact />
-      <WorkflowAndHygiene />
-      <PriceCalculator />
-      <FAQ />
+      
+      {/* Smooth gradient transitions between sections */}
+      <div className="bg-gradient-to-b from-gray-900/5 via-gray-50 to-white">
+        <Impact />
+      </div>
+      
+      <div className="bg-gradient-to-b from-white via-gray-50/50 to-white">
+        <WorkflowAndHygiene />
+      </div>
+      
+      <div className="bg-gradient-to-b from-white via-gray-50/30 to-gray-50">
+        <PriceCalculator />
+      </div>
+      
+      <div className="bg-gradient-to-b from-gray-50 to-white">
+        <FAQ />
+      </div>
+      
       <Footer />
     </div>
   );
