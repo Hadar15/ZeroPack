@@ -52,10 +52,10 @@ export function WorkflowAndHygiene() {
 
   return (
     <div className="w-full py-12 px-4 relative overflow-hidden">
-      {/* Subtle animated background elements */}
+      {/* Subtle animated background elements with color variation */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="absolute top-1/4 left-1/4 w-64 h-64 bg-gray-100 rounded-full opacity-30 blur-3xl"
+          className="absolute top-1/4 left-1/4 w-64 h-64 bg-gray-100/60 rounded-full opacity-40 blur-3xl"
           animate={{
             scale: [1, 1.2, 1],
             x: [0, 40, 0],
@@ -67,13 +67,25 @@ export function WorkflowAndHygiene() {
           }}
         />
         <motion.div
-          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gray-100 rounded-full opacity-25 blur-3xl"
+          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-slate-100/50 rounded-full opacity-35 blur-3xl"
           animate={{
             scale: [1, 1.15, 1],
             x: [0, -30, 0],
           }}
           transition={{
             duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute top-1/2 right-1/3 w-72 h-72 bg-stone-100/40 rounded-full opacity-30 blur-3xl"
+          animate={{
+            scale: [1, 1.1, 1],
+            y: [0, -25, 0],
+          }}
+          transition={{
+            duration: 14,
             repeat: Infinity,
             ease: "easeInOut",
           }}

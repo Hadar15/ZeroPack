@@ -43,11 +43,11 @@ export function Impact() {
   const currentData = impactData[selectedTimeFrame];
 
   return (
-    <section className="py-12 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
+    <section className="py-12 bg-gradient-to-br from-blue-50/40 via-slate-50/60 to-gray-50/40 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="absolute top-20 right-10 w-72 h-72 bg-gray-100 rounded-full opacity-40 blur-3xl"
+          className="absolute top-20 right-10 w-72 h-72 bg-blue-100/40 rounded-full opacity-50 blur-3xl"
           animate={{
             scale: [1, 1.2, 1],
             x: [0, 30, 0],
@@ -60,7 +60,7 @@ export function Impact() {
           }}
         />
         <motion.div
-          className="absolute bottom-20 left-10 w-96 h-96 bg-gray-100 rounded-full opacity-30 blur-3xl"
+          className="absolute bottom-20 left-10 w-96 h-96 bg-slate-100/50 rounded-full opacity-40 blur-3xl"
           animate={{
             scale: [1, 1.1, 1],
             x: [0, -20, 0],
@@ -190,13 +190,13 @@ export function Impact() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="relative lg:col-span-2"
+              className="relative lg:col-span-2 flex items-center"
             >
-              <div className="relative rounded-2xl overflow-hidden shadow-xl">
+              <div className="relative rounded-2xl overflow-hidden shadow-xl w-full">
                 <img
                   src={dattsImage}
                   alt="Dampak Kolektif"
-                  className="w-full h-auto"
+                  className="w-full h-auto max-h-[400px] object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900/10 to-transparent pointer-events-none" />
               </div>

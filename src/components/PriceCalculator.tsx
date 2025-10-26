@@ -24,10 +24,10 @@ export function PriceCalculator() {
 
   return (
     <section className="py-12 px-4 relative overflow-hidden">
-      {/* Subtle animated background */}
+      {/* Subtle animated background with warm tones */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="absolute top-10 right-20 w-72 h-72 bg-gray-100 rounded-full opacity-35 blur-3xl"
+          className="absolute top-10 right-20 w-72 h-72 bg-stone-100/50 rounded-full opacity-45 blur-3xl"
           animate={{
             scale: [1, 1.3, 1],
             y: [0, -30, 0],
@@ -39,13 +39,25 @@ export function PriceCalculator() {
           }}
         />
         <motion.div
-          className="absolute bottom-10 left-20 w-96 h-96 bg-gray-100 rounded-full opacity-25 blur-3xl"
+          className="absolute bottom-10 left-20 w-96 h-96 bg-gray-100/60 rounded-full opacity-35 blur-3xl"
           animate={{
             scale: [1, 1.2, 1],
             y: [0, 40, 0],
           }}
           transition={{
             duration: 13,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute top-1/2 left-1/2 w-80 h-80 bg-slate-100/40 rounded-full opacity-30 blur-3xl"
+          animate={{
+            scale: [1, 1.15, 1],
+            x: [0, 30, 0],
+          }}
+          transition={{
+            duration: 11,
             repeat: Infinity,
             ease: "easeInOut",
           }}

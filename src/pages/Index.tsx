@@ -23,20 +23,24 @@ const Index = () => {
       <Navigation />
       <Hero />
       
-      {/* Smooth gradient transitions between sections - Reduced spacing */}
-      <div className="bg-gradient-to-b from-gray-900/5 via-gray-50 to-white">
+      {/* Smooth gradient transitions with subtle colors */}
+      {/* Hero to Impact - Transition from green to soft blue-gray */}
+      <div className="bg-gradient-to-b from-green-900/10 via-slate-50 to-blue-50/30">
         <Impact />
       </div>
       
-      <div className="bg-gradient-to-b from-white via-gray-50/50 to-white">
+      {/* Impact to WorkflowAndHygiene - Soft blue to gray gradient */}
+      <div className="bg-gradient-to-b from-blue-50/30 via-gray-50 to-slate-50">
         <WorkflowAndHygiene />
       </div>
       
-      <div className="bg-gradient-to-b from-white via-gray-50/30 to-gray-50">
+      {/* WorkflowAndHygiene to PriceCalculator - Gray to warm gradient */}
+      <div className="bg-gradient-to-b from-slate-50 via-stone-50/50 to-gray-50/80">
         <PriceCalculator />
       </div>
       
-      <div className="bg-gradient-to-b from-gray-50 to-white pt-16">
+      {/* PriceCalculator to FAQ - Warm to neutral */}
+      <div className="bg-gradient-to-b from-gray-50/80 via-slate-50/50 to-white pt-16">
         <FAQ />
       </div>
       
