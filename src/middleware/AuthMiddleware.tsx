@@ -46,15 +46,15 @@ export const useAuthMiddleware = () => {
           return;
         }
 
-        // Detect suspicious activities
+        // User Agent check disabled - too sensitive and causes false positives
+        // Uncomment below if you want to re-enable device change detection
+        /*
         const currentUserAgent = window.navigator.userAgent;
         const storedUserAgent = localStorage.getItem('user_agent');
         
-        // If no stored user agent, save it (first time login)
         if (!storedUserAgent) {
           localStorage.setItem('user_agent', currentUserAgent);
         } else if (storedUserAgent !== currentUserAgent) {
-          // Only logout if user agent is different from stored one
           toast({
             variant: "destructive",
             title: "Sesi Mencurigakan Terdeteksi",
@@ -64,6 +64,7 @@ export const useAuthMiddleware = () => {
           navigate('/auth');
           return;
         }
+        */
 
       } catch (error) {
         console.error('Session check failed:', error);

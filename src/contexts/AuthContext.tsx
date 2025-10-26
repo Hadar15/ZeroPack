@@ -113,7 +113,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         
         if (lastDevice && lastDevice !== currentDevice) {
           toast({
-            variant: "warning",
             title: "Login dari Perangkat Baru",
             description: "Akun Anda diakses dari perangkat baru"
           });
@@ -124,6 +123,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } else if (event === 'SIGNED_OUT') {
         localStorage.removeItem('secure_session');
         localStorage.removeItem('last_device');
+        localStorage.removeItem('user_agent'); // Clear user agent check
         navigate('/');
       }
     });
@@ -141,6 +141,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       await supabase.auth.signOut();
       localStorage.removeItem('secure_session');
       localStorage.removeItem('last_device');
+      localStorage.removeItem('user_agent'); // Clear user agent check
       navigate('/');
     } catch (error: any) {
       console.error('Logout failed:', error);
