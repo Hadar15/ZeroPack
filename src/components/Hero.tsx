@@ -13,8 +13,8 @@ const Hero = () => {
             backgroundImage: `url(${heroImage})`
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-transparent to-black/50" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-br from-green-900/60 via-green-800/40 to-green-950/70" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_var(--tw-gradient-stops))] from-primary/20 via-green-700/10 to-transparent" />
       </div>
 
       <div className="container relative z-10 mx-auto px-4 sm:px-6 py-16 sm:py-20 md:py-28 lg:py-32 text-center">

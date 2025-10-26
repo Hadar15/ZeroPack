@@ -2,8 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
-import { HowItWorks } from "@/components/HowItWorks";
-import { HygieneStandards } from "@/components/HygieneStandards";
+import { WorkflowAndHygiene } from "@/components/WorkflowAndHygiene";
 import { Impact } from "@/components/Impact";
 import { PriceCalculator } from "@/components/PriceCalculator";
 import { FAQ } from "@/components/FAQ";
@@ -24,9 +23,8 @@ const Index = () => {
       <Navigation />
       <Hero />
       <Impact />
-      <HowItWorks />
+      <WorkflowAndHygiene />
       <PriceCalculator />
-      <HygieneStandards />
       <FAQ />
       <Footer />
     </div>
