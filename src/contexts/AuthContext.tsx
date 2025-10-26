@@ -38,6 +38,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Clear old security checks on app load (one-time cleanup)
+    const hasCleanedUp = sessionStorage.getItem('security_cleanup_done');
+    if (!hasCleanedUp) {
+      localStorage.removeItem('user_agent');
+      localStorage.removeItem('last_device');
+      sessionStorage.setItem('security_cleanup_done', 'true');
+      console.log('Security cleanup completed');
+    }
+
     let lastActivity = Date.now();
     const SESSION_TIMEOUT = 30 * 60 * 1000; // 30 minutes
 
@@ -107,7 +116,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setLoading(false);
       
       if (event === 'SIGNED_IN') {
-        // Validate device fingerprint
+        // Device fingerprint check disabled - too sensitive
+        // Uncomment below if you want to re-enable device change detection
+        /*
         const currentDevice = encrypt(navigator.userAgent);
         const lastDevice = localStorage.getItem('last_device');
         
@@ -119,6 +130,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
         
         localStorage.setItem('last_device', currentDevice);
+        */
         navigate('/dashboard');
       } else if (event === 'SIGNED_OUT') {
         localStorage.removeItem('secure_session');
